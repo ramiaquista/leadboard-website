@@ -1,29 +1,16 @@
 import './style.css';
+import leadboardData from './leadboardAPI';
 
-const user1 = {
-  name: 'Rami',
-  score: 100,
-};
+const gameID = 'JxURczUS4w2xJdOpfmIm';
 
-const user2 = {
-  name: 'Lucas',
-  score: 31,
-};
+const leadboard = [];
 
-const user3 = {
-  name: 'Marcos',
-  score: 20,
-};
-
-const user4 = {
-  name: 'Frank',
-  score: 13,
-};
-
-const leadboard = [user1, user2, user3, user4];
-
-const displayList = (leadboard, ul) => {
-  leadboard.forEach((user, index) => {
+async function displayList(leadboard, ul) {
+  while (ul.hasChildNodes()) ul.removeChild(ul.firstChild);
+  await leadboardData.refreshData(gameID).then((data) => {
+    leadboard = data.result;
+  });
+  leadboard.forEach((player, index) => {
     const li = document.createElement('li');
     const h3 = document.createElement('h3');
 
@@ -33,13 +20,13 @@ const displayList = (leadboard, ul) => {
       li.classList.add('grey-row');
     }
 
-    h3.innerText = `${user.name}: ${user.score}`;
+    h3.innerText = `${player.user}: ${player.score}`;
 
     li.appendChild(h3);
 
     ul.appendChild(li);
   });
-};
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const listContainer = document.querySelector('.list-container');
@@ -59,6 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
   listTitle.innerText = 'Recent Scores';
   refreshBtn.innerText = 'Refresh';
 
+  refreshBtn.addEventListener('click', () => {
+    leadboardData.refreshData(gameID);
+    displayList(leadboard, leadboardList);
+  });
+
   listTitleContainer.appendChild(listTitle);
   listTitleContainer.appendChild(refreshBtn);
 
@@ -77,9 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
   nameInput.placeholder = 'Your name';
   scoreInput.placeholder = 'Your score';
   submitBtn.innerText = 'Submit';
+  submitBtn.type = 'button';
   addForm.classList.add('dflex');
   addForm.classList.add('add-form');
   addTitle.classList.add('add-title');
+
+  submitBtn.addEventListener('click', () => {
+    leadboardData.submitNewPlayer(gameID, nameInput.value, scoreInput.value);
+    nameInput.value = '';
+    scoreInput.value = '';
+  });
 
   addForm.append(addTitle, nameInput, scoreInput, submitBtn);
   addContainer.appendChild(addForm);
