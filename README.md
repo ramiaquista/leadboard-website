@@ -37,7 +37,12 @@ No extra dependencies needed to use the code!
 
 ### Usage
 
-Add Live Server VSCode extension to deploy a local host server in order to start using it!
+Once you clone the repository:
+ - cd repository-clone
+ - npm install
+ - npm start
+
+ You are ready to go!
 
 ### Live Demo Server
 
