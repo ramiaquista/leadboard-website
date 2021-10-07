@@ -1,15 +1,25 @@
 body {
   display: flex;
   flex-direction: column;
+  height: 100vh;
   font-family: sans-serif;
+  background-image: url('bg-image.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .dflex {
   display: flex;
 }
 
+.d-none {
+  display: none;
+}
+
 .title-container {
   font-size: 50px;
+  text-decoration: underline;
   font-weight: bold;
   margin: 40px;
 }
@@ -27,7 +37,7 @@ body {
 
 .leadbord-list {
   flex-direction: column;
-  border: 1px solid grey;
+  border: 2px solid grey;
   padding: 0;
   margin: 0;
   width: 100%;
@@ -35,7 +45,7 @@ body {
 
 .leadbord-list li {
   list-style: none;
-  padding: 5px;
+  padding: 10px;
   padding-left: 20px;
 }
 
@@ -55,17 +65,20 @@ body {
 .list-header {
   justify-content: space-between;
   font-size: 20px;
+  margin-bottom: 30px;
 }
 
 .refresh-btn {
   align-self: center;
   font-size: 18px;
+  border: 1px solid grey;
+  border-radius: 0.3rem;
 }
 
 .add-container {
   flex-direction: column;
-  padding-left: 10%;
-  width: 40%;
+  padding-left: 15%;
+  width: 50%;
 }
 
 .add-form {
@@ -75,10 +88,10 @@ body {
 
 .add-title {
   font-size: 2rem;
+  margin-bottom: 33px;
 }
 
 .add-form input {
-  margin: 0;
   margin-bottom: 25px;
   padding: 10px;
 }
@@ -88,4 +101,8 @@ body {
   width: 20%;
   margin: 0;
   margin-left: 80%;
+}
+
+.alert {
+  margin-top: 10px;
 }

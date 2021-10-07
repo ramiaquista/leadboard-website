@@ -1,7 +1,7 @@
 import './style.css';
 import leadboardData from './leadboardAPI';
 
-const gameID = 'JxURczUS4w2xJdOpfmIm';
+const gameID = 'gu59d6P3oXbQx2t8pVbz';
 
 const leadboard = [];
 
@@ -28,6 +28,14 @@ async function displayList(leadboard, ul) {
   });
 }
 
+const timeoutClose = () => {
+  const alert = document.querySelector('.alert');
+  alert.classList.remove('d-none');
+  window.setTimeout(() => {
+    alert.classList.add('d-none');
+  }, 2000);
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const listContainer = document.querySelector('.list-container');
 
@@ -42,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
   listTitleContainer.classList.add('dflex');
   listTitleContainer.classList.add('list-header');
   refreshBtn.classList.add('refresh-btn');
+  refreshBtn.classList.add('btn');
+  refreshBtn.classList.add('btn-secondary');
 
   listTitle.innerText = 'Recent Scores';
   refreshBtn.innerText = 'Refresh';
@@ -70,6 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
   scoreInput.placeholder = 'Your score';
   submitBtn.innerText = 'Submit';
   submitBtn.type = 'button';
+  submitBtn.classList.add('btn');
+  submitBtn.classList.add('btn-primary');
   addForm.classList.add('dflex');
   addForm.classList.add('add-form');
   addTitle.classList.add('add-title');
@@ -78,9 +90,17 @@ document.addEventListener('DOMContentLoaded', () => {
     leadboardData.submitNewPlayer(gameID, nameInput.value, scoreInput.value);
     nameInput.value = '';
     scoreInput.value = '';
+    timeoutClose();
   });
 
-  addForm.append(addTitle, nameInput, scoreInput, submitBtn);
+  const divAlert = document.createElement('div');
+
+  divAlert.classList.add('alert');
+  divAlert.classList.add('alert-success');
+  divAlert.classList.add('d-none');
+  divAlert.role = 'alert';
+  divAlert.innerHTML = '<strong>Success!</strong> You have been added successfully!';
+  addForm.append(addTitle, nameInput, scoreInput, submitBtn, divAlert);
   addContainer.appendChild(addForm);
 
   displayList(leadboard, leadboardList);
